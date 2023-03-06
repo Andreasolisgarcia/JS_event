@@ -91,11 +91,14 @@ header.addEventListener("dblclick", linkDisabled)
 // qu'à 20 % de sa taille d'origine et les boutons "Edit" / "View" restent visibles. Cette fonction sera réversible : 
 // s'il repasse sa souris, la card redevient normale !
 
+let viewButtons = document.querySelectorAll(".btn.btn-sm.btn-success")
+
 function cardChanges(event){
     let card = event.target.closest('.card')
     let image = card.querySelector('.card-img-top')
     image.style.width = '20%'
     card.querySelector('.card-text').style.display = 'none'
+    card.isChanged = true; // set the flag to true
 }
 
 function cardNormal(event){
@@ -103,26 +106,54 @@ function cardNormal(event){
     let image = card.querySelector('.card-img-top')
     image.style.width = ''
     card.querySelector('.card-text').style.display = ''
+    card.isChanged = false; // set the flag to false
 }
 
-let viewButtons = document.querySelectorAll(".btn.btn-sm.btn-success")
+function toggleCard(event){
+    let card = event.target.closest('.card')
+    if (card.isChanged) {
+        cardNormal(event) // call cardNormal if the card is already changed
+    } else {
+        cardChanges(event) // call cardChanges if the card is not changed
+    }
+}
 
 viewButtons.forEach((button) => {
-    button.addEventListener("mouseover", cardChanges)
-    button.addEventListener("mouseout", cardNormal)
-});
+    button.addEventListener("mouseover", toggleCard)
+})
+
 
 
 // Fonctionnalité 7 :
 // Allez on va rajouter un peu de WTF dans la page : si un utilisateur clique sur le bouton gris ==>, la 
 // dernière card (en bas à droite) va passer en premier (en haut à gauche). On va pouvoir faire tourner les cards !
 
+let buttonRigth = document.querySelector(".btn.btn-secondary.my-2")
+
+function turnRigth(){
+let cards = document.querySelectorAll('.col-md-4')
+let parent = cards[0].parentNode;
+let lastCard = cards[cards.length - 1]
+parent.insertBefore(lastCard, cards[0])
+}
+
+buttonRigth.addEventListener("click", turnRigth)
 
 // Fonctionnalité 8 :
 // Évidemment tu t'y attendais : on va faire tourner les card dans l'autre sens aussi. Donc si un utilisateur clique 
 // sur le bouton bleu <==, la première card devra passer en dernier. À première vue, tu te dis que si tu as réussi à 
 // faire la fonctionnalité précédente, celle-ci c'est du gateau... sauf qu'il y a quelques pièges.
 
+let buttonLeft = document.querySelector(".btn.btn-primary.my-2")
+
+function turnLef(){
+    let parent = document.querySelector('.album .container .row');
+    let firstCard = document.querySelector('.col-md-4:first-child');
+    parent.removeChild(firstCard);
+    parent.appendChild(firstCard);
+}
+
+buttonLeft.addEventListener("click", turnLef)
 
 // Fonctionnalité 9 :
 // Bon si t'es arrivé jusque-là, c'est que t'as besoin d'un peu de challenge. Du coup je t'ai concocté une fonctionnalité 
