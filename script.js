@@ -3,7 +3,7 @@
 // tu vas afficher en console "clic numéro x" avec x qui commence à 1 et s'incrémente de +1 à chaque clic.
 
 let footer = document.querySelector('footer')
-let counter = 1
+let counter = 0
 
 function clickFooter(){
     counter++
@@ -134,7 +134,7 @@ let buttonRigth = document.querySelector(".btn.btn-secondary.my-2")
 
 function turnRigth(){
 let cards = document.querySelectorAll('.col-md-4')
-let parent = cards[0].parentNode;
+let parent = cards[0].parentNode
 let lastCard = cards[cards.length - 1]
 parent.insertBefore(lastCard, cards[0])
 }
@@ -149,6 +149,7 @@ buttonRigth.addEventListener("click", turnRigth)
 let buttonLeft = document.querySelector(".btn.btn-primary.my-2")
 
 function turnLef(){
+    buttonLeft.removeAttribute("href")
     let parent = document.querySelector('.album .container .row');
     let firstCard = document.querySelector('.col-md-4:first-child');
     parent.removeChild(firstCard);
