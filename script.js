@@ -3,7 +3,7 @@
 // tu vas afficher en console "clic numéro x" avec x qui commence à 1 et s'incrémente de +1 à chaque clic.
 
 let footer = document.querySelector('footer')
-let counter = 0
+let counter = 1
 
 function clickFooter(){
     counter++
@@ -38,11 +38,13 @@ buttonNavBar.addEventListener("click", changeClassNavBar)
 
 let buttons = document.querySelectorAll(".btn-group")
 let firstCardEditButton = buttons[0].children[1]
+let firstCard = document.querySelectorAll('.col-md-4')[0]
+let firstCardText = firstCard.querySelector('.card-text')
 
-function redButton(){
-    this.className = "btn btn-danger"
+function redText(){
+    firstCardText.style.color = "red"
 }
-firstCardEditButton.addEventListener("click", redButton)
+firstCardEditButton.addEventListener("click", redText)
 
 // Fonctionnalité 4 :
 // On va faire quelque chose de similaire à la fonctionnalité 3 mais un peu plus complexe : si on clique sur le bouton 
@@ -166,3 +168,33 @@ buttonLeft.addEventListener("click", turnLef)
 //re condensé sur 4 colonnes Bootstrap au milieu de l'écran.
 // Si l'utilisateur presse la touche "p", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap à droite de l'écran.
 // Si l'utilisateur presse la touche "b", tout redevient normal.
+
+let logo = document.querySelector(".navbar-brand.d-flex.align-items-center")
+// Ajoute un écouteur d'événement pour la touche pressée
+document.addEventListener("keydown", changeColumns)
+
+function changeColumns(event){
+  if (event.key === "a") {
+
+    // Condense la page sur 4 colonnes Bootstrap à gauche de l'écran
+    let cards = document.querySelectorAll(".col-md-4")
+    card.forEach(function(col) {
+      col.classList.remove(".col-md-4")
+      col.classList.add("col-4")
+    })
+}
+
+//   } else if (event.key === "y") {
+//     // Condense la page sur 4 colonnes Bootstrap au milieu de l'écran
+//          classList.add("col-4", "offset-md-3")
+//     })
+//   } else if (event.key === "p") {
+//
+//      classList.add("col-4", "offset-md-6")
+//     });
+//   } else if (event.key === "b") {
+//     // Remet tout à la normale
+//         classList.add("col-md-4")
+//     })
+//   }
+ }
